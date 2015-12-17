@@ -31,6 +31,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @SuppressWarnings("unused") //used as extension
@@ -59,11 +60,16 @@ public class ConditionalTrigger extends Trigger<AbstractProject> {
         StreamBuildListener buildListener = new StreamBuildListener(byteArrayOutputStream);
 
         try {
+
             if(runCondition.runPerform(getGlobalVariablesFreestyleBuildAdapter(), buildListener)){
+                LOG.fine("Evaluating expression to true, running trigger");
                 targetTrigger.run();
+            } else {
+                LOG.fine("Evaluating expression to false, not running trigger");
             }
+
         } catch (Exception e) {
-            LOG.severe(e.getMessage());
+            LOG.log(Level.SEVERE, "Unexpected exception", e);
         }
     }
 
