@@ -30,6 +30,6 @@ public class GlobalVariablesFreestyleBuildAdapter extends FreeStyleBuild {
 
     @Override
     public EnvVars getEnvironment(TaskListener log) throws IOException, InterruptedException {
-        return Computer.currentComputer().getEnvironment();
+        return Jenkins.getInstance().getComputer("(master)").getEnvironment();
     }
 }

@@ -8,6 +8,7 @@ Limitation
 
 1. Freestyle project only
 2. Global variables only
+2. Master node only
 
 How to contribute to this plugin
 --------------------------------
